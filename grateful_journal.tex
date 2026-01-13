@@ -1,0 +1,211 @@
+\documentclass[10pt]{article}
+
+% Kindle Scribe native-ish page size:
+% 1860x2480 px at 300 ppi => 6.2in x 8.2667in
+\usepackage[
+  paperwidth=6.2in,
+  paperheight=8.2667in,
+  top=8mm,bottom=8mm,left=8mm,right=8mm
+]{geometry}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{pgffor}
+\usepackage{xcolor}
+\usepackage{lmodern}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\renewcommand{\familydefault}{\sfdefault}
+
+% ---- style ----
+\definecolor{ink}{gray}{0.12}
+\definecolor{guide}{gray}{0.80}
+\definecolor{frame}{gray}{0.72}
+\color{ink}
+\newcommand{\GuideRule}[1]{\begingroup\color{guide}\rule{#1}{0.3pt}\endgroup}
+\newcommand{\GuideLine}{\GuideRule{\linewidth}}
+
+\newcommand{\Label}[1]{\textbf{\small #1}}
+\newcommand{\Prompt}[1]{\Label{#1}\par}
+
+\newcommand{\DateLine}[1]{%
+  {\large \textbf{#1}}\par
+  \vspace{0.8mm}
+  \GuideLine
+  \vspace{2.5mm}
+}
+
+\newcommand{\DateLineSection}[2]{%
+  {\large \textbf{#1}}\hfill{\small \textcolor{guide}{#2}}\par
+  \vspace{0.8mm}
+  \GuideLine
+  \vspace{2.5mm}
+}
+
+\newcommand{\TitleFlourish}{%
+  \begin{tikzpicture}[x=1mm,y=1mm]
+    \draw[color=guide, line width=0.3pt]
+      (0,0)
+      .. controls (5,0.8) and (10,-0.8) .. (15,0)
+      .. controls (20,0.8) and (25,-0.8) .. (30,0);
+  \end{tikzpicture}%
+}
+
+% Enso circle - zen symbol of wholeness and imperfection
+\newcommand{\Enso}{%
+  \begin{tikzpicture}[x=1mm,y=1mm]
+    \draw[color=frame, line width=0.5pt]
+      (0,0) arc[start angle=85, end angle=445, radius=8mm];
+  \end{tikzpicture}%
+}
+
+\newcommand{\TitlePage}{%
+  \thispagestyle{empty}
+  \begin{tikzpicture}[remember picture,overlay]
+    % Single subtle outer frame
+    \draw[color=guide, line width=0.3pt, rounded corners=1.5mm]
+      ([xshift=10mm,yshift=-10mm]current page.north west)
+      rectangle
+      ([xshift=-10mm,yshift=10mm]current page.south east);
+  \end{tikzpicture}
+  \vspace*{\fill}
+  \begin{center}
+    {\Large \textsc{Grateful Journal}}\par
+    \vspace{10mm}
+    \Enso\par
+    \vspace{10mm}
+    {\small \textsc{Daily Practice}}\par
+    \vspace{1.5mm}
+    {\normalsize \textsc{2026}}\par
+    \vspace{14mm}
+    \TitleFlourish\par
+    \vspace{10mm}
+    {\small \textit{One who knows enough is rich.}}\par
+    \vspace{3mm}
+    {\tiny \textcolor{guide}{— Lao Tzu}}\par
+  \end{center}
+  \vspace*{\fill}
+}
+
+\newcommand{\ScoreField}[1]{%
+  \Label{#1}\hspace{1.5mm}\GuideRule{16mm}\,\textcolor{guide}{/10}%
+}
+
+\newcommand{\ScoreRowThree}[3]{%
+  \noindent\begin{tabular*}{\linewidth}{@{}p{0.33\linewidth}p{0.33\linewidth}p{0.33\linewidth}@{}}%
+    \ScoreField{#1} & \ScoreField{#2} & \ScoreField{#3} \\
+  \end{tabular*}\par
+  \vspace{2.6mm}
+}
+
+\newcommand{\ScoreRowTwo}[2]{%
+  \noindent\begin{tabular*}{\linewidth}{@{}p{0.5\linewidth}p{0.5\linewidth}@{}}%
+    \ScoreField{#1} & \ScoreField{#2} \\
+  \end{tabular*}\par
+  \vspace{2.6mm}
+}
+
+\newcommand{\WriteLines}[2][6.8mm]{%
+  \vspace{0.6mm}\GuideLine
+  \ifnum#2>1
+    \foreach \i in {2,...,#2}{%
+      \vspace{#1}\GuideLine
+    }%
+  \fi
+  \vspace{1.6mm}
+}
+
+\newcommand{\Separator}{%
+  \vspace{1.2mm}
+  \begin{center}
+    \begin{tikzpicture}[x=1mm,y=1mm]
+      \draw[color=guide, line width=0.2pt]
+        (0,0)
+        .. controls (3,0.7) and (6,-0.7) .. (9,0)
+        .. controls (12,0.7) and (15,-0.7) .. (18,0);
+    \end{tikzpicture}
+  \end{center}
+  \vspace{1.6mm}
+}
+
+\newcommand{\WriteNumberedLines}[2][10.5mm]{%
+  \foreach \i in {1,...,#2}{%
+    \vspace{#1}%
+    \noindent\makebox[6mm][l]{\textcolor{guide}{\small \i}}%
+    \GuideRule{\dimexpr\linewidth-6mm\relax}\par
+  }%
+  \vspace{1.6mm}
+}
+
+% ---- page types ----
+\newcommand{\MorningPage}[1]{%
+  \DateLineSection{#1}{Morning}
+  \ScoreRowThree{Sleep}{Energy}{Mood}
+  \Separator
+
+  \Prompt{Grateful for:}
+  \WriteNumberedLines{3}
+  \vfill
+
+  \Prompt{Today will be a win if:}
+  \WriteLines{2}
+  \vfill
+
+  \Prompt{One priority:}
+  \WriteLines{2}
+  \vfill
+
+  \Prompt{How I'll show up today:}
+  \WriteLines{2}
+  \vspace{4mm}
+}
+
+\newcommand{\EveningPage}[1]{%
+  \DateLineSection{#1}{Evening}
+  \ScoreRowTwo{Mood}{Energy}
+  \Separator
+
+  \Prompt{3 good things that happened:}
+  \WriteNumberedLines{3}
+  \vfill
+
+  \Prompt{Why they happened / what I did right:}
+  \WriteLines{3}
+  \vfill
+
+  \Prompt{One adjustment for tomorrow:}
+  \WriteLines{3}
+  \vspace{4mm}
+}
+
+\newcommand{\WeeklyPage}[1]{%
+  {\LARGE \textbf{Week of #1}}\par
+  \vspace{1mm}
+  \GuideLine
+  \vspace{3mm}
+
+  \Prompt{3 highlights:}
+  \WriteLines{3}
+  \Separator
+
+  \Prompt{What worked:}
+  \WriteLines{2}
+  \Separator
+
+  \Prompt{One improvement:}
+  \WriteLines{2}
+  \Separator
+
+  \Prompt{Intention for next week:}
+  \WriteLines{1}
+}
+
+\begin{document}
+
+\TitlePage
+\newpage
+\input{pages_2026.tex}
+
+\end{document}
