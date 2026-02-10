@@ -5,3 +5,7 @@
 *.fdb_latexmk
 *.synctex.gz
 previews/
+.codex/auto_fix/
+
+# Codex (legacy local skills path; use .agents/skills instead)
+.codex/skills/
