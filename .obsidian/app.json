@@ -1,0 +1,32 @@
+{
+  "userIgnoreFilters": [
+    "(^|/)\\.codex(/|$)",
+    "(^|/)\\.git(/|$)",
+    "(^|/)\\.github(/|$)",
+    "(^|/)\\.next(/|$)",
+    "(^|/)\\.venv(/|$)",
+    "(^|/)__pycache__(/|$)",
+    "(^|/)build(/|$)",
+    "(^|/)coverage(/|$)",
+    "(^|/)dist(/|$)",
+    "(^|/)node_modules(/|$)",
+    "(^|/)previews(/|$)",
+    "(^|/)scripts(/|$)",
+    "(^|/)venv(/|$)"
+  ],
+  "codexManagedUserIgnoreFilters": [
+    "(^|/)\\.codex(/|$)",
+    "(^|/)\\.git(/|$)",
+    "(^|/)\\.github(/|$)",
+    "(^|/)\\.next(/|$)",
+    "(^|/)\\.venv(/|$)",
+    "(^|/)__pycache__(/|$)",
+    "(^|/)build(/|$)",
+    "(^|/)coverage(/|$)",
+    "(^|/)dist(/|$)",
+    "(^|/)node_modules(/|$)",
+    "(^|/)previews(/|$)",
+    "(^|/)scripts(/|$)",
+    "(^|/)venv(/|$)"
+  ]
+}
